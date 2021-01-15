@@ -1,13 +1,12 @@
 package com.buchi.stackflow.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
+import com.buchi.stackflow.R
 import com.buchi.stackflow.data.LoginRepository
 import com.buchi.stackflow.data.Result
-
-import com.buchi.stackflow.R
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
