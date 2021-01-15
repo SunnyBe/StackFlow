@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Running Unit test and build project..."
+
+./gradlew app:test build --daemon
+
+status=$?
+
+# return 1 exit code if running checks fails
+[ $status -ne 0 ] && exit 1
+exit 0
