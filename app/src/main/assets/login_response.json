@@ -1,0 +1,6 @@
+{
+  "error": false,
+  "code": 200,
+  "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoiNjAwMjlmYTVlZTMzYTcwMDE3ZmZhOThmIiwiaWF0IjoxNjEwNzg0NzEzLCJleHAiOjE2MTA4Mjc5MTN9.n2LdUwPtNAZpPzX8V46Ue5tSOXg3-Vx28VikHjzo2hA",
+  "message": "user successfully logged in"
+}

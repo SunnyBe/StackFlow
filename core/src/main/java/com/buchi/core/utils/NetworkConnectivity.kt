@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 
 /**
- * Network connectivity
+ * Utility to get network connectivity status
  */
 object NetworkConnectivity {
 

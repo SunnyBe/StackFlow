@@ -10,9 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.StackFlow">
+        android:theme="@style/Theme.StackFlow"
+        android:name=".StackApplication">
         <activity
-            android:name="com.buchi.stackflow.login.LoginActivity"
+            android:name=".auth.presentation.AuthActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
