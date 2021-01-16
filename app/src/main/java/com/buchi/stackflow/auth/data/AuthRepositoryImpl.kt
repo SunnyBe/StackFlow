@@ -11,9 +11,9 @@ class AuthRepositoryImpl constructor(
     private val apiService: AuthService = RetrofitBuilder.retrofit().create(AuthService::class.java)
 ) : AuthRepository {
 
-    override fun signIn(loginBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>> =
+    override fun signIn(sigInBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>> =
         flow<ResultState<SignInViewState>> {
-            apiService.signIn(loginBody)
+            apiService.signIn(sigInBody)
         }.onStart {
             emit(ResultState.loading())
         }.catch {

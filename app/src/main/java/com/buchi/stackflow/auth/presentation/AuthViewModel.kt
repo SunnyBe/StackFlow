@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.asFlow
+import javax.inject.Inject
 
-class AuthViewModel constructor() : ViewModel() {
+class AuthViewModel @Inject constructor() : ViewModel() {
+    fun testString(): String = "Test string"
+
     private val _showProgress = ConflatedBroadcastChannel(false)
     val showProgress = _showProgress.asFlow().asLiveData()
 

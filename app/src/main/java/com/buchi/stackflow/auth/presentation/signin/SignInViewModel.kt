@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class SignInViewModel constructor(
+class SignInViewModel @Inject constructor(
     private val authRepo: AuthRepository
 ) : ViewModel() {
     private val stateChannel = ConflatedBroadcastChannel<SignInViewState>()
