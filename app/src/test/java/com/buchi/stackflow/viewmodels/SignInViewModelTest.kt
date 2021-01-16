@@ -44,7 +44,7 @@ class SignInViewModelTest {
                 emit(
                     ResultState.data(
                         SignInViewState(
-                            signedIn = AuthEntity.AuthResponse(
+                            signInResponse = AuthEntity.AuthResponse(
                                 error = false,
                                 code = 200,
                                 data = "some random id",
@@ -56,13 +56,13 @@ class SignInViewModelTest {
             }
             // Process
             val signInBody = AuthEntity.SignInBody("username", "password")
-            viewModel.signIn(signInBody.userName!!, signInBody.password!!)
+            viewModel.signIn(signInBody.email!!, signInBody.password!!)
             Mockito.`when`(authRepo.signIn(signInBody)).thenReturn(testFlow)
             // Test
             val expectedString = "user successfully logged in"
             Assert.assertEquals(
                 expectedString,
-                viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.signedIn?.message
+                viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.signInResponse?.message
             )
         }
     }

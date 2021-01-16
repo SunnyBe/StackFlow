@@ -57,7 +57,7 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 
     //Networking
-//    api 'com.squareup.okhttp3:okhttp:4.9.0'
+    api 'com.squareup.okhttp3:okhttp:4.9.0'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
 
     api 'com.google.code.gson:gson:2.8.6'

@@ -40,10 +40,14 @@ class SignInViewModel @Inject constructor(
         eventChannel.offer(
             SignInStateEvent.SignIn(
                 AuthEntity.SignInBody(
-                    userName = username,
+                    email = username,
                     password = password
                 )
             )
         )
+    }
+
+    fun setViewState(viewState: SignInViewState) {
+        stateChannel.offer(viewState)
     }
 }
