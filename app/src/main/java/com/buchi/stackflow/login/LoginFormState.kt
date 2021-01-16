@@ -1,4 +1,4 @@
-package com.buchi.stackflow.ui.login
+package com.buchi.stackflow.login
 
 /**
  * Data validation state of the login form.

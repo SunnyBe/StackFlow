@@ -1,4 +1,4 @@
-package com.buchi.stackflow.ui.login
+package com.buchi.stackflow.login
 
 /**
  * Authentication result : success (user details) or error message.

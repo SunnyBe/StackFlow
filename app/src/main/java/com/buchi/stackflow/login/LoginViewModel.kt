@@ -1,4 +1,4 @@
-package com.buchi.stackflow.ui.login
+package com.buchi.stackflow.login
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData

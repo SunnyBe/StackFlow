@@ -1,4 +1,4 @@
-package com.buchi.stackflow.ui.login
+package com.buchi.stackflow.login
 
 /**
  * User details post authentication that is exposed to the UI
