@@ -1,6 +1,5 @@
 package com.buchi.question.presentation.dashboard
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.buchi.question.utils.QuestionViewHolder
 
 class QuestionListAdapter(
     private val itemList: MutableList<QuestionEntity.Question> = mutableListOf(),
-    val onClickAction: (QuestionEntity.Question)-> Unit
+    val onClickAction: (QuestionEntity.Question) -> Unit
 ) : RecyclerView.Adapter<QuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         val itemBinding =

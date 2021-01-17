@@ -5,22 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.buchi.core.utils.ViewModelFactory
 import com.buchi.question.databinding.DialogAnswerBinding
 import com.buchi.question.databinding.QuestionDetailFragmentBinding
 import com.buchi.question.model.QuestionEntity
 import com.buchi.question.presentation.QuestionViewModel
+import com.buchi.question.presentation.dashboard.QuestionListAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class QuestionDetailFragment : Fragment() {
     private var _binding: QuestionDetailFragmentBinding? = null
     private val binding get() = _binding!!
@@ -122,7 +123,7 @@ class QuestionDetailFragment : Fragment() {
                             javaClass.simpleName,
                             "Updating list with questions: ${response.data}"
                         )
-                        // Todo Update the view with the update
+                        // Todo Update the answers list with the update
                     }
                 }
 
@@ -135,7 +136,10 @@ class QuestionDetailFragment : Fragment() {
                             javaClass.simpleName,
                             "Updating list with questions: ${upvoted.data}"
                         )
-                        // Todo update the view with the update
+                        binding.answersList.apply {
+                            layoutManager = LinearLayoutManager(requireContext())
+                            // Todo create and adapter and upate the list view
+                        }
                     }
                 }
             }

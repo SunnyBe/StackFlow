@@ -9,6 +9,7 @@ class QuestionViewHolder(private val itemBinding: ItemQuestionBinding) : Recycle
     fun bind(item: QuestionEntity.Question, onClickAction: (QuestionEntity.Question)-> Unit) {
         itemBinding.itemQuestionTitle.text = item.user
         itemBinding.itemQuestionContent.text = item.question
+        itemBinding.includeStats.upvoteValue.text =  item.votes.toString()
 
         itemBinding.root.setOnClickListener {
             onClickAction(item)

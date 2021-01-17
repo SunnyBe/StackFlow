@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -57,7 +56,6 @@ class SignUpFragment : Fragment() {
             { viewState ->
                 viewState.loading?.let {
                     // show loading if loading state is true
-                    Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
                     activityViewModel.toShowProgress(it)
                 }
 
@@ -80,11 +78,6 @@ class SignUpFragment : Fragment() {
                     if (response.error == true) {
                         activityViewModel.processError(Throwable(response.message))
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Response: ${response.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         Log.d(javaClass.simpleName, "Fetched signed in object $response")
                         // Navigate to question dashboard
                         val questionIntent = Intent(requireActivity(), QuestionActivity::class.java)
