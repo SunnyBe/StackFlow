@@ -78,6 +78,7 @@ dependencies {
 
     implementation project(":core")
     implementation project(":data")
+    implementation project(":question")
 }
 
 // Task to include git hook to .git file

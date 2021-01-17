@@ -1,5 +1,6 @@
 package com.buchi.stackflow.auth.presentation.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.buchi.core.utils.ViewModelFactory
+import com.buchi.question.presentation.QuestionActivity
 import com.buchi.stackflow.auth.presentation.AuthViewModel
 import com.buchi.stackflow.databinding.FragmentSignupBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +86,9 @@ class SignUpFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.d(javaClass.simpleName, "Fetched signed in object $response")
-                        // Todo Proceed to list of questions
+                        // Navigate to question dashboard
+                        val questionIntent = Intent(requireActivity(), QuestionActivity::class.java)
+                        requireContext().startActivity(questionIntent)
                     }
                 }
             }

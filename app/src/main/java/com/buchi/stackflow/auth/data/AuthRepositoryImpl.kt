@@ -1,17 +1,18 @@
 package com.buchi.stackflow.auth.data
 
 import android.util.Log
+import com.buchi.core.utils.OkHttpHelper
 import com.buchi.core.utils.ResultState
 import com.buchi.stackflow.auth.model.AuthEntity
 import com.buchi.stackflow.auth.presentation.signin.SignInViewState
 import com.buchi.stackflow.auth.presentation.signup.SignUpViewState
-import com.buchi.stackflow.utils.OkHttpHelper
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class AuthRepositoryImpl constructor(
-    private val okhttpService: OkHttpHelper = OkHttpHelper("https://stackoverflw.herokuapp.com/v1/")
+class AuthRepositoryImpl @Inject constructor(
+    private val okhttpService: OkHttpHelper
 ) : AuthRepository {
 
     override fun signIn(sigInBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>> =

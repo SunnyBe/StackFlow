@@ -1,32 +1,40 @@
 package com.buchi.question.presentation.dashboard
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.buchi.question.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.buchi.core.utils.ViewModelFactory
+import com.buchi.question.databinding.QuestionDashboardFragmentBinding
+import com.buchi.question.presentation.QuestionViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class QuestionDashboardFragment : Fragment() {
+    private var _binding: QuestionDashboardFragmentBinding? = null
+    private val binding get() = _binding!!
 
-    companion object {
-        fun newInstance() = QuestionDashboardFragment()
-    }
-
-    private lateinit var viewModel: QuestionDashboardViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: QuestionDashboardViewModel by viewModels { viewModelFactory }
+    private val activityViewModel: QuestionViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.question_dashboard_fragment, container, false)
+        _binding = QuestionDashboardFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(QuestionDashboardViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }
