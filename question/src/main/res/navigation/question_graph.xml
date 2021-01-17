@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/question_graph"
+    app:startDestination="@id/questionDashboardFragment">
+
+    <fragment
+        android:id="@+id/questionDashboardFragment"
+        android:name="com.buchi.question.presentation.dashboard.QuestionDashboardFragment"
+        android:label="question_dashboard_fragment"
+        tools:layout="@layout/question_dashboard_fragment" >
+        <action
+            android:id="@+id/action_questionDashboardFragment_to_questionDetailFragment"
+            app:destination="@id/questionDetailFragment" />
+        <action
+            android:id="@+id/action_questionDashboardFragment_to_answersFragment"
+            app:destination="@id/answersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionDetailFragment"
+        android:name="com.buchi.question.presentation.detail.QuestionDetailFragment"
+        android:label="question_detail_fragment"
+        tools:layout="@layout/question_detail_fragment" >
+        <action
+            android:id="@+id/action_questionDetailFragment_to_answersFragment"
+            app:destination="@id/answersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answersFragment"
+        android:name="com.buchi.question.presentation.answers.AnswersFragment"
+        android:label="fragment_answers"
+        tools:layout="@layout/fragment_answers" />
+</navigation>

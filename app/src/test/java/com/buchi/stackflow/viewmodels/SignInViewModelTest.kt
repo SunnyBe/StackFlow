@@ -38,7 +38,7 @@ class SignInViewModelTest {
     }
 
     @Test
-    fun fetchCard_SuccessUpdatesViewStateAndDataState() {
+    fun signIn_SuccessUpdatesViewStateAndDataState() {
         coroutineScope.runBlockingTest {
             val testFlow = flow {
                 emit(

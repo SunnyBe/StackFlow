@@ -1,10 +1,7 @@
-package com.buchi.stackflow.utils
+package com.buchi.core.utils
 
 import android.util.Log
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
+import okhttp3.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -14,10 +11,10 @@ import java.util.concurrent.TimeUnit
  */
 class OkHttpHelper(private val baseUrl: String) {
     private val okHttpClient = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .callTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .callTimeout(60, TimeUnit.SECONDS)
         .build()
 
     /**
@@ -41,7 +38,7 @@ class OkHttpHelper(private val baseUrl: String) {
 
     fun makeRequest(url: String, body: RequestBody? = null): Response {
         val request = appendUrl(url, body).build()
-        Log.d(javaClass.simpleName, "Request: $request")
+        Log.d(javaClass.simpleName, "Request: $request\nBody: ${request.body}")
         return okHttpClient.newCall(request = request).execute()
     }
 }

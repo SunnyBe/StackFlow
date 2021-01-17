@@ -1,5 +1,6 @@
 package com.buchi.stackflow.auth.presentation.signin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.buchi.core.utils.ViewModelFactory
+import com.buchi.question.presentation.QuestionActivity
+import com.buchi.stackflow.R
 import com.buchi.stackflow.auth.presentation.AuthViewModel
 import com.buchi.stackflow.databinding.FragmentSigninBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,13 +80,18 @@ class SignInFragment : Fragment() {
                     if (response.error == true) {
                         activityViewModel.processError(Throwable(response.message))
                     } else {
-                        Toast.makeText(requireContext(), "Response: ${response.message}", Toast.LENGTH_SHORT).show()
                         Log.d(javaClass.simpleName, "Fetched signed in object $response")
-                        // Todo Proceed to list of questions
+                        // Navigate to question dashboard
+                        val questionIntent = Intent(requireActivity(), QuestionActivity::class.java)
+                        requireContext().startActivity(questionIntent)
                     }
                 }
             }
         )
+
+        binding.navigateToSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+        }
     }
 
     override fun onDestroyView() {

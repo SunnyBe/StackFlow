@@ -1,9 +1,8 @@
 package com.buchi.stackflow.auth.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.buchi.core.di.ViewModelKey
-import com.buchi.core.utils.ViewModelFactory
+import com.buchi.core.utils.OkHttpHelper
 import com.buchi.stackflow.auth.data.AuthRepository
 import com.buchi.stackflow.auth.data.AuthRepositoryImpl
 import com.buchi.stackflow.auth.presentation.AuthViewModel
@@ -13,15 +12,14 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityComponent::class)
 abstract class ViewModelModule {
-    @Binds
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
     @Binds
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
@@ -42,5 +40,6 @@ abstract class ViewModelModule {
 @InstallIn(ApplicationComponent::class)
 object AuthModule {
     @Provides
-    fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl()
+    @Singleton
+    fun provideAuthRepository(okhttp: OkHttpHelper): AuthRepository = AuthRepositoryImpl(okhttp)
 }
