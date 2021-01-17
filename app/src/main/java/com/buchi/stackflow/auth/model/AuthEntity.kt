@@ -48,6 +48,7 @@ sealed class AuthEntity {
     data class SignUpBody(
         val email: String? = null,
         val password: String? = null,
+        val cPassword: String? = null,
         val firstName: String? = null,
         val lastName: String? = null
     ) : AuthEntity() {
@@ -59,6 +60,7 @@ sealed class AuthEntity {
             return FormBody.Builder()
                 .add("email", email ?: "")
                 .add("password", password ?: "")
+                .add("cPassword", cPassword ?: "")
                 .add("firstname", firstName ?: "")
                 .add("lastname", lastName ?: "")
                 .build()
@@ -76,6 +78,7 @@ sealed class AuthEntity {
                 return FormBody.Builder()
                     .add("email", email ?: "")
                     .add("password", password ?: "")
+                    .add("cPassword", password ?: "")
                     .add("firstname", firstName ?: "")
                     .add("lastname", lastName ?: "")
                     .build()

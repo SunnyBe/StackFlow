@@ -37,7 +37,11 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun signUp(email: String, password: String, firstName: String?, lastName: String?) {
-        val signUpBody = AuthEntity.SignUpBody(email, password, firstName, lastName)
+        val signUpBody = AuthEntity.SignUpBody(email, password, password, firstName, lastName)
         eventChannel.offer(SignUpStateEvent.SignUp(signUpBody = signUpBody))
+    }
+
+    fun setViewState(viewState: SignUpViewState) {
+        stateChannel.offer(viewState)
     }
 }

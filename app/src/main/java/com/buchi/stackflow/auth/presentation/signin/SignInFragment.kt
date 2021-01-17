@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.buchi.core.utils.ViewModelFactory
+import com.buchi.stackflow.R
 import com.buchi.stackflow.auth.presentation.AuthViewModel
 import com.buchi.stackflow.databinding.FragmentSigninBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,6 +85,10 @@ class SignInFragment : Fragment() {
                 }
             }
         )
+
+        binding.navigateToSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+        }
     }
 
     override fun onDestroyView() {
