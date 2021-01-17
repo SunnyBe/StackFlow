@@ -65,7 +65,7 @@ class SignUpViewModelTest {
             // Test
             val expectedString = "user successfully registered"
             val actualString = viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.signUpResponse?.message
-//            Assert.assertEquals(expectedString, actualString)
+//            Assert.assertEquals(expectedString, actualString) Todo Fix test issue
         }
     }
 }
