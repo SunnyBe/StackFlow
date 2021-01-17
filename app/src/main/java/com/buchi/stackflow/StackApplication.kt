@@ -1,10 +1,10 @@
 package com.buchi.stackflow
 
-import android.app.Application
+import com.buchi.core.CoreApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class StackApplication() : Application() {
+class StackApplication() : CoreApplication() {
 
     override fun onCreate() {
         super.onCreate()
