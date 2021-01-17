@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -56,7 +57,7 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 
     //Networking
-//    api 'com.squareup.okhttp3:okhttp:4.9.0'
+    api 'com.squareup.okhttp3:okhttp:4.9.0'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
 
     api 'com.google.code.gson:gson:2.8.6'
@@ -66,6 +67,10 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     def lottieVersion = "3.4.0"
     api "com.airbnb.android:lottie:$lottieVersion"
+
+    api "com.google.dagger:hilt-android:2.28-alpha"
+    api "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 
     def mockwebserverVersion = "4.9.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'

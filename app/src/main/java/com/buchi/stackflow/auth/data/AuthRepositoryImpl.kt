@@ -1,19 +1,31 @@
 package com.buchi.stackflow.auth.data
 
+import android.util.Log
 import com.buchi.core.utils.ResultState
 import com.buchi.stackflow.auth.model.AuthEntity
 import com.buchi.stackflow.auth.presentation.signin.SignInViewState
-import com.buchi.stackflow.utils.RetrofitBuilder
+import com.buchi.stackflow.utils.OkHttpHelper
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class AuthRepositoryImpl constructor(
-    private val apiService: AuthService = RetrofitBuilder.retrofit().create(AuthService::class.java)
+    private val okhttpService: OkHttpHelper = OkHttpHelper("https://stackoverflw.herokuapp.com/v1/")
 ) : AuthRepository {
 
-    override fun signIn(loginBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>> =
+    override fun signIn(sigInBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>> =
         flow<ResultState<SignInViewState>> {
-            apiService.signIn(loginBody)
+            val response = okhttpService.makeRequest("user/signin", sigInBody.makeFormBody())
+            Log.d(javaClass.simpleName, "Response: $response")
+            if (response.isSuccessful) {
+                val apiResp = Gson().fromJson<AuthEntity.AuthResponse<String>>(
+                    response.body?.string(),
+                    AuthEntity.AuthResponse::class.java
+                )
+                emit(ResultState.data(SignInViewState(signInResponse = apiResp)))
+            } else {
+                emit(ResultState.error(Throwable("${response.code} ${response.message}")))
+            }
         }.onStart {
             emit(ResultState.loading())
         }.catch {

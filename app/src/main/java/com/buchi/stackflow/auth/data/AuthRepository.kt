@@ -6,5 +6,9 @@ import com.buchi.stackflow.auth.presentation.signin.SignInViewState
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    fun signIn(loginBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>>
+    /**
+     * Make a request to sign in a user. The request is expected to be made to a network source
+     * @param sigInBody , entity containing the items that make the body of the request.
+     */
+    fun signIn(sigInBody: AuthEntity.SignInBody): Flow<ResultState<SignInViewState>>
 }
