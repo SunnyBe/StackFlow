@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.buchi.core.utils.ResultState
 import com.buchi.stackflow.auth.data.AuthRepository
 import com.buchi.stackflow.auth.model.AuthEntity
-import com.buchi.stackflow.auth.presentation.signin.SignInViewModel
-import com.buchi.stackflow.auth.presentation.signin.SignInViewState
+import com.buchi.stackflow.auth.presentation.signup.SignUpViewModel
+import com.buchi.stackflow.auth.presentation.signup.SignUpViewState
 import com.buchi.stackflow.utils.MainCoroutineScopeRule
 import com.buchi.stackflow.utils.getValueForTest
 import kotlinx.coroutines.flow.flow
@@ -18,9 +18,9 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class SignInViewModelTest {
+class SignUpViewModelTest {
 
-    private lateinit var viewModel: SignInViewModel
+    private lateinit var viewModel: SignUpViewModel
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -34,35 +34,40 @@ class SignInViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        viewModel = SignInViewModel(authRepo)
+        viewModel = SignUpViewModel(authRepo)
     }
 
     @Test
-    fun signIn_SuccessUpdatesViewStateAndDataState() {
+    fun signUp_SuccessUpdatesViewStateAndDataState() {
         coroutineScope.runBlockingTest {
             val testFlow = flow {
                 emit(
                     ResultState.data(
-                        SignInViewState(
-                            signInResponse = AuthEntity.AuthResponse(
+                        SignUpViewState(
+                            signUpResponse = AuthEntity.AuthResponse(
                                 error = false,
                                 code = 200,
                                 data = "some random id",
-                                message = "user successfully logged in"
+                                message = "user successfully registered"
                             )
                         )
                     )
                 )
             }
             // Process
-            val signInBody = AuthEntity.SignInBody("username", "password")
-            viewModel.signIn(signInBody.email!!, signInBody.password!!)
-            Mockito.`when`(authRepo.signIn(signInBody)).thenReturn(testFlow)
+            val signUpBody = AuthEntity.SignUpBody("username", "password", "firstName", "lastName")
+            viewModel.signUp(
+                signUpBody.email!!,
+                signUpBody.password!!,
+                signUpBody.firstName,
+                signUpBody.lastName
+            )
+            Mockito.`when`(authRepo.signUp(signUpBody)).thenReturn(testFlow)
             // Test
-            val expectedString = "user successfully logged in"
+            val expectedString = "user successfully registered"
             Assert.assertEquals(
                 expectedString,
-                viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.signInResponse?.message
+                viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.signUpResponse?.message
             )
         }
     }

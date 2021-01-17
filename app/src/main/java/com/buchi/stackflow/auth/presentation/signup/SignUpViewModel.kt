@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.buchi.core.utils.ResultState
 import com.buchi.stackflow.auth.data.AuthRepository
-import com.buchi.stackflow.auth.presentation.signin.SignInStateEvent
-import com.buchi.stackflow.auth.presentation.signin.SignInViewState
+import com.buchi.stackflow.auth.model.AuthEntity
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -16,8 +15,8 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val authRepo: AuthRepository
 ) : ViewModel() {
-    private val stateChannel = ConflatedBroadcastChannel<SignInViewState>()
-    private val eventChannel = ConflatedBroadcastChannel<SignInStateEvent>(SignInStateEvent.Idle())
+    private val stateChannel = ConflatedBroadcastChannel<SignUpViewState>()
+    private val eventChannel = ConflatedBroadcastChannel<SignUpStateEvent>(SignUpStateEvent.Idle())
 
     val viewState = stateChannel.asFlow().asLiveData()
     val dataState = eventChannel.asFlow()
@@ -26,14 +25,19 @@ class SignUpViewModel @Inject constructor(
         }
         .asLiveData()
 
-    private fun processActions(stateEvent: SignInStateEvent): Flow<ResultState<SignInViewState>> {
+    private fun processActions(stateEvent: SignUpStateEvent): Flow<ResultState<SignUpViewState>> {
         return when (stateEvent) {
-            is SignInStateEvent.SignIn -> {
-                authRepo.signIn(stateEvent.signInBody)
+            is SignUpStateEvent.SignUp -> {
+                authRepo.signUp(stateEvent.signUpBody)
             }
-            is SignInStateEvent.Idle -> {
-                flow { emit(ResultState.data(SignInViewState())) }
+            is SignUpStateEvent.Idle -> {
+                flow { emit(ResultState.data(SignUpViewState())) }
             }
         }
+    }
+
+    fun signUp(email: String, password: String, firstName: String?, lastName: String?) {
+        val signUpBody = AuthEntity.SignUpBody(email, password, firstName, lastName)
+        eventChannel.offer(SignUpStateEvent.SignUp(signUpBody = signUpBody))
     }
 }
