@@ -1,10 +1,6 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id "org.jlleitschuh.gradle.ktlint" version "9.4.1"
 }
 
 android {
@@ -12,13 +8,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.buchi.stackflow"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,61 +23,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    // For Kotlin projects
     kotlinOptions {
-        jvmTarget = "1.8"
-        useIR = true
+        jvmTarget = '1.8'
     }
 
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
+    //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 
     def mockwebserverVersion = "4.9.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1'
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserverVersion"
+    testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1'
     testImplementation 'org.mockito:mockito-core:2.23.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0'
     testImplementation "io.mockk:mockk:1.10.2"
-    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(":core")
-    implementation project(":data")
 }
-
-// Task to include git hook to .git file
-task installGitHook(type: Copy) {
-    def suffix = "macos"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        suffix = "windows"
-    }
-    from new File(rootProject.rootDir, "scripts/pre-commit-$suffix")
-    into { new File(rootProject.rootDir, '.git/hooks') }
-    rename("pre-commit-$suffix", 'pre-commit')
-
-
-    from new File(rootProject.rootDir, "scripts/pre-push-$suffix")
-    into { new File(rootProject.rootDir, '.git/hooks') }
-    rename("pre-push-$suffix", 'pre-push')
-
-    fileMode 0775
-}
-
-tasks.getByPath(':app:preBuild').dependsOn installGitHook
